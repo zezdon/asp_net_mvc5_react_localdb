@@ -99,7 +99,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 ReactDOM.render(React.createElement("div", null,
-    React.createElement("h2", null, "Test")), document.getElementById("foodorder"));
+    React.createElement("h2", null, "Test123")), document.getElementById("foodorder"));
 
 
 /***/ }),
