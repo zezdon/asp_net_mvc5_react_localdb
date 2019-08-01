@@ -4,6 +4,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {FoodModel, IAppState} from "./Models";
+import { Popup } from "./Popup";
 
 export class MenuBox extends React.Component<any, IAppState> {
     [x: string]: any;
@@ -15,6 +16,24 @@ export class MenuBox extends React.Component<any, IAppState> {
 
         this.getLoginStatus();
         this.loadMenusFromServer();
+        this.handleDataFromChild = this.handleDataFromChild.bind(this);
+    }
+
+    handleDataFromChild(popupShown, isOrderPlaced) {
+        var tmp: IAppState = this.state;
+
+        if (isOrderPlaced) {
+            tmp.myOrder = null;
+            tmp.orderPlaced = true;
+            tmp.showPopup = false;
+        }
+        else {
+            tmp.orderPlaced = false;
+            tmp.showPopup = false;
+        }
+        this.setState(tmp);
+        document.getElementById('dvcart').style.visibility = 'visible';
+
     }
 
     getLoginStatus() {
@@ -82,8 +101,10 @@ export class MenuBox extends React.Component<any, IAppState> {
     }
 
     continueOrder() {
-        //todo
-        alert('coding in progress');
+        var tmp: IAppState = this.state;
+        tmp.showPopup = true;
+        this.setState(tmp);
+        document.getElementById('dvcart').style.visibility = 'hidden';
     }
 
     render() {
@@ -127,6 +148,9 @@ export class MenuBox extends React.Component<any, IAppState> {
         var cart = document.getElementById("dvcart");
         var menu = document.getElementById("dvmenu");
 
+        if (this.state.orderPlaced)
+            cart.innerHTML = '<div class="orderPlaced">Order Placed successfully</div>';
+
         if (this.state.userId < 1) {
             myItems = null;
             if (cart != null)
@@ -143,6 +167,13 @@ export class MenuBox extends React.Component<any, IAppState> {
 
         return (
             <div>
+
+                {this.state.showPopup ?
+                    <Popup
+                        handlerFromParent={this.handleDataFromChild}
+                        myOrder={this.state.myOrder}
+                        userId={this.state.userId} /> : null}
+
                 <div id="wrapper">
                     <div id="dvmenu">
                         {menuList}
