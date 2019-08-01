@@ -6,6 +6,7 @@ import * as ReactDOM from "react-dom";
 import {FoodModel, IAppState} from "./Models";
 
 export class MenuBox extends React.Component<any, IAppState> {
+    [x: string]: any;
     state: { items: any; myOrder: any; showPopup: boolean; userId: number; orderPlaced: boolean; };
 
     constructor(state) {
@@ -63,7 +64,7 @@ export class MenuBox extends React.Component<any, IAppState> {
         var tmp: IAppState = this.state;
         tmp.myOrder = myCart;
         tmp.showPopup = false;
-        //this.setState(tmp);
+        this.setState(tmp);
     } 
 
     render() {
@@ -78,12 +79,44 @@ export class MenuBox extends React.Component<any, IAppState> {
             )
         }, this);
 
+        var total = 0;
+        let myCart = this.state.myOrder || [];
+        var myItems = myCart.map(function (menu) {
+            total += menu.Price * menu.Quantity;
+            return (
+                <div key={menu.Id}>
+                    <img style={{ width: '75px', float: 'left', margin: '5px' }} src={"/img/" + menu.Picture} />
+                    {menu.Name}<br />
+                    Qty: {menu.Quantity}<br />
+                    Price: ${menu.Price * menu.Quantity} <br />
+                    <hr />
+                </div>
+
+            );
+
+        }, this);
+
+        var totalAndContinueLink = <div className="grandTotal cartEmpty">Cart Empty!</div>;
+        if (total > 0)
+            totalAndContinueLink =
+                <div className="grandTotal cartNotEmpty">Grand Total: ${total}
+                    <button className="greenBtn continueOrder">Continue Order</button>
+                </div>;
+
         return (
             <div>
                 <div id="wrapper">
                     <div id="dvmenu">
                         {menuList}
                     </div>
+
+                    <div id="dvcart">
+                        <div id="cartContent">
+                            {myItems}
+                        </div>
+                        {totalAndContinueLink}
+                    </div>
+
                 </div>
             </div>);
     }
