@@ -101,7 +101,19 @@ class MenuBox extends React.Component {
     constructor(state) {
         super(state);
         this.state = { items: null, myOrder: null, showPopup: false, userId: 0, orderPlaced: false };
+        this.getLoginStatus();
         this.loadMenusFromServer();
+    }
+    getLoginStatus() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', '/data/GetUserId/', true);
+        xhr.onload = function () {
+            var userid = parseInt(xhr.responseText);
+            var tmp = this.state;
+            tmp.userId = userid;
+            this.setState(tmp);
+        }.bind(this);
+        xhr.send();
     }
     loadMenusFromServer() {
         var xhr = new XMLHttpRequest();
@@ -113,6 +125,27 @@ class MenuBox extends React.Component {
             this.setState(tmp);
         }.bind(this);
         xhr.send();
+    }
+    addToCart(id) {
+        if (this.state.userId < 1) {
+            alert('Log in to continue!');
+            return;
+        }
+        id--;
+        var myCart = this.state.myOrder || [];
+        var allItems = this.state.items;
+        if (myCart.indexOf(allItems[id]) > -1) {
+            var itemToOrder = myCart.find(m => m.Id === allItems[id].Id);
+            itemToOrder["Quantity"] = itemToOrder["Quantity"] + 1;
+        }
+        else {
+            var itemToOrder = allItems[id];
+            itemToOrder["Quantity"] = 1;
+            myCart.push(allItems[id]);
+        }
+        var tmp = this.state;
+        tmp.myOrder = myCart;
+        tmp.showPopup = false;
     }
     render() {
         let menus = this.state.items || [];
@@ -128,7 +161,9 @@ class MenuBox extends React.Component {
                 React.createElement("p", null),
                 React.createElement("div", null,
                     "$",
-                    menu.Price),
+                    menu.Price,
+                    " | ",
+                    React.createElement("a", { href: '#', onClick: this.addToCart.bind(this, menu.Id) }, "Add to cart")),
                 React.createElement("hr", null)));
         }, this);
         return (React.createElement("div", null,
