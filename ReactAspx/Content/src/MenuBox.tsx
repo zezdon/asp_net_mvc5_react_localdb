@@ -103,6 +103,23 @@ export class MenuBox extends React.Component<any, IAppState> {
                     <button className="greenBtn continueOrder">Continue Order</button>
                 </div>;
 
+        var cart = document.getElementById("dvcart");
+        var menu = document.getElementById("dvmenu");
+
+        if (this.state.userId < 1) {
+            myItems = null;
+            if (cart != null)
+                cart.style.display = "none";
+            if (menu != null)
+                menu.style.flex = "0 0 85%";
+        }
+        else {
+            if (cart != null)
+                cart.style.display = "block";
+            if (menu != null)
+                menu.style.flex = "0 0 55%";
+        } 
+
         return (
             <div>
                 <div id="wrapper">

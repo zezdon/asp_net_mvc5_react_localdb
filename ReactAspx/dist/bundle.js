@@ -191,6 +191,21 @@ class MenuBox extends React.Component {
                     "Grand Total: $",
                     total,
                     React.createElement("button", { className: "greenBtn continueOrder" }, "Continue Order"));
+        var cart = document.getElementById("dvcart");
+        var menu = document.getElementById("dvmenu");
+        if (this.state.userId < 1) {
+            myItems = null;
+            if (cart != null)
+                cart.style.display = "none";
+            if (menu != null)
+                menu.style.flex = "0 0 85%";
+        }
+        else {
+            if (cart != null)
+                cart.style.display = "block";
+            if (menu != null)
+                menu.style.flex = "0 0 55%";
+        }
         return (React.createElement("div", null,
             React.createElement("div", { id: "wrapper" },
                 React.createElement("div", { id: "dvmenu" }, menuList),
