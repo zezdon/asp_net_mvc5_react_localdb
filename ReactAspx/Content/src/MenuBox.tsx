@@ -67,6 +67,25 @@ export class MenuBox extends React.Component<any, IAppState> {
         this.setState(tmp);
     } 
 
+    removeFromCart(id) {
+        if (this.state.userId < 1) {
+            alert('Log in to continue!');
+            return;
+        }
+        var myCart = this.state.myOrder || [];
+        var allItems = this.state.items;
+        myCart.splice(id, 1);
+
+        var tmp: IAppState = this.state;
+        tmp.myOrder = myCart;
+        this.setState(tmp);
+    }
+
+    continueOrder() {
+        //todo
+        alert('coding in progress');
+    }
+
     render() {
         let menus = this.state.items || [];
         var menuList = menus.map(function (menu) {
@@ -80,6 +99,7 @@ export class MenuBox extends React.Component<any, IAppState> {
         }, this);
 
         var total = 0;
+        var cartItemIndex = 0;
         let myCart = this.state.myOrder || [];
         var myItems = myCart.map(function (menu) {
             total += menu.Price * menu.Quantity;
@@ -89,6 +109,7 @@ export class MenuBox extends React.Component<any, IAppState> {
                     {menu.Name}<br />
                     Qty: {menu.Quantity}<br />
                     Price: ${menu.Price * menu.Quantity} <br />
+                    | <a href='#' onClick={this.removeFromCart.bind(this, cartItemIndex++)} >remove</a>
                     <hr />
                 </div>
 
@@ -100,7 +121,7 @@ export class MenuBox extends React.Component<any, IAppState> {
         if (total > 0)
             totalAndContinueLink =
                 <div className="grandTotal cartNotEmpty">Grand Total: ${total}
-                    <button className="greenBtn continueOrder">Continue Order</button>
+                    <button className="greenBtn continueOrder" onClick={this.continueOrder.bind(this)}>Continue Order</button>
                 </div>;
 
         var cart = document.getElementById("dvcart");

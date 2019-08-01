@@ -148,6 +148,21 @@ class MenuBox extends React.Component {
         tmp.showPopup = false;
         this.setState(tmp);
     }
+    removeFromCart(id) {
+        if (this.state.userId < 1) {
+            alert('Log in to continue!');
+            return;
+        }
+        var myCart = this.state.myOrder || [];
+        var allItems = this.state.items;
+        myCart.splice(id, 1);
+        var tmp = this.state;
+        tmp.myOrder = myCart;
+        this.setState(tmp);
+    }
+    continueOrder() {
+        alert('coding in progress');
+    }
     render() {
         let menus = this.state.items || [];
         var menuList = menus.map(function (menu) {
@@ -168,6 +183,7 @@ class MenuBox extends React.Component {
                 React.createElement("hr", null)));
         }, this);
         var total = 0;
+        var cartItemIndex = 0;
         let myCart = this.state.myOrder || [];
         var myItems = myCart.map(function (menu) {
             total += menu.Price * menu.Quantity;
@@ -182,6 +198,8 @@ class MenuBox extends React.Component {
                 menu.Price * menu.Quantity,
                 " ",
                 React.createElement("br", null),
+                "| ",
+                React.createElement("a", { href: '#', onClick: this.removeFromCart.bind(this, cartItemIndex++) }, "remove"),
                 React.createElement("hr", null)));
         }, this);
         var totalAndContinueLink = React.createElement("div", { className: "grandTotal cartEmpty" }, "Cart Empty!");
@@ -190,7 +208,7 @@ class MenuBox extends React.Component {
                 React.createElement("div", { className: "grandTotal cartNotEmpty" },
                     "Grand Total: $",
                     total,
-                    React.createElement("button", { className: "greenBtn continueOrder" }, "Continue Order"));
+                    React.createElement("button", { className: "greenBtn continueOrder", onClick: this.continueOrder.bind(this) }, "Continue Order"));
         var cart = document.getElementById("dvcart");
         var menu = document.getElementById("dvmenu");
         if (this.state.userId < 1) {
