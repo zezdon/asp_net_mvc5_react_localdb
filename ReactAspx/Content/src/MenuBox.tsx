@@ -53,9 +53,11 @@ export class MenuBox extends React.Component<any, IAppState> {
         xhr.open('get', '/data/GetUserId/', true);
         xhr.onload = function () {
             var userid: number = parseInt(xhr.responseText);
-            var tmp: IAppState = this.state;
-            tmp.userId = userid;
-            this.setState(tmp);
+            if (!isNaN(userid)) {
+                var tmp: IAppState = this.state;
+                tmp.userId = userid;
+                this.setState(tmp);
+            }
 
         }.bind(this);
         xhr.send();
@@ -96,7 +98,7 @@ export class MenuBox extends React.Component<any, IAppState> {
         tmp.myOrder = myCart;
         tmp.showPopup = false;
         this.setState(tmp);
-    } 
+    }
 
     removeFromCart(id) {
         if (this.state.userId < 1) {
@@ -118,7 +120,6 @@ export class MenuBox extends React.Component<any, IAppState> {
         this.setState(tmp);
         document.getElementById('dvcart').style.visibility = 'hidden';
     }
-
     render() {
         let menus = this.state.items || [];
         var menuList = menus.map(function (menu) {
@@ -156,7 +157,6 @@ export class MenuBox extends React.Component<any, IAppState> {
                 <div className="grandTotal cartNotEmpty">Grand Total: ${total}
                     <button className="greenBtn continueOrder" onClick={this.continueOrder.bind(this)}>Continue Order</button>
                 </div>;
-
         var cart = document.getElementById("dvcart");
         var menu = document.getElementById("dvmenu");
 
@@ -175,8 +175,7 @@ export class MenuBox extends React.Component<any, IAppState> {
                 cart.style.display = "block";
             if (menu != null)
                 menu.style.flex = "0 0 55%";
-        } 
-
+        }
         return (
             <div>
 
@@ -205,7 +204,7 @@ export class MenuBox extends React.Component<any, IAppState> {
                     </div>
 
                 </div>
-            </div>); 
+            </div>);
     }
 
 }

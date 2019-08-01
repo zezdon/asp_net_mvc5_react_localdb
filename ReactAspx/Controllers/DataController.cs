@@ -11,13 +11,14 @@ namespace ReactAspx.Controllers
     {
         public IList<FoodItem> menuItems;
         // GET: Data
+
         [HttpGet]
         public ActionResult GetMenuList()
         {
             menuItems = new List<FoodItem>();
             using (var db = new AppDbContext())
             {
-                foreach(var f in db.FoodItems)
+                foreach (var f in db.FoodItems)
                 {
                     menuItems.Add(f);
                 }
@@ -27,6 +28,7 @@ namespace ReactAspx.Controllers
         }
 
         [HttpGet]
+        [AuthorizeNadia]
         public string GetUserId()
         {
             int uid = -1;
@@ -36,6 +38,7 @@ namespace ReactAspx.Controllers
         }
 
         [HttpPost]
+        [AuthorizeNadia]
         public ActionResult PlaceOrder(IList<FoodItem> items, int id)
         {
             bool dbSuccess = false;
@@ -72,10 +75,10 @@ namespace ReactAspx.Controllers
                     dbSuccess = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //log ex
-                dbSuccess = false; 
+                dbSuccess = false;
             }
 
             if (dbSuccess)
@@ -85,4 +88,34 @@ namespace ReactAspx.Controllers
 
         }
     }
+
+    public class AuthorizeNadia : AuthorizeAttribute
+    {
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            if (httpContext == null) throw new ArgumentNullException("httpContext");
+
+            // Make sure the user logged in.
+            if (httpContext.Session["Email"] == null)
+            {
+                return false;
+            }
+
+            // Do you own custom stuff here
+            // Check if the user is allowed to Access resources;
+
+            return true;
+        }
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            base.OnAuthorization(filterContext);
+
+            if (this.AuthorizeCore(filterContext.HttpContext) == false)
+            {
+                filterContext.Result = new RedirectResult("/Account/Login/?ret=" + filterContext.HttpContext.Request.CurrentExecutionFilePath);
+            }
+        }
+    }
+
 }
