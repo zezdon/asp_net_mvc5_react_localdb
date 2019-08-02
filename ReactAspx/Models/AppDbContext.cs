@@ -8,7 +8,7 @@ namespace ReactAspx.Models
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext() : base("DefaultConnection")
+        public AppDbContext() : base("DBNAME")
         {
 
         }
