@@ -5,7 +5,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-export interface FoodModel {
+export interface ArtistModel {
 
     Id: number;
     Name: string;
@@ -16,10 +16,9 @@ export interface FoodModel {
 }
 
 export interface IAppState {
-    items: FoodModel[];
-    myOrder: FoodModel[];
+    items: ArtistModel[];
+    myOrder: ArtistModel[];
     showPopup: boolean;
     userId: number;
     orderPlaced: boolean;
 }
-

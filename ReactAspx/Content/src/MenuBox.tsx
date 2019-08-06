@@ -3,7 +3,7 @@
 // https://github.com/Microsoft/TypeScript/wiki/JSX
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {FoodModel, IAppState} from "./Models";
+import {ArtistModel, IAppState} from "./Models";
 import { Popup } from "./Popup";
 
 export class MenuBox extends React.Component<any, IAppState> {

@@ -2,7 +2,7 @@
 
 * `cd ReactAspx`
 * `npm install`
-* `build Alternative.Template` in Visual Studio 2017
+* `build ReactAspx` in Visual Studio 2017
 * `npm run webpack` to compile the react code
 
 # If could not find file 'XXX\bin\roslyn\csc.exe'

@@ -9,16 +9,16 @@ namespace ReactAspx.Controllers
 {
     public class DataController : Controller
     {
-        public IList<FoodItem> menuItems;
+        public IList<tblArtists> menuItems;
         // GET: Data
 
         [HttpGet]
         public ActionResult GetMenuList()
         {
-            menuItems = new List<FoodItem>();
+            menuItems = new List<tblArtists>();
             using (var db = new AppDbContext())
             {
-                foreach (var f in db.FoodItems)
+                foreach (var f in db.tblArtists)
                 {
                     menuItems.Add(f);
                 }
@@ -39,7 +39,7 @@ namespace ReactAspx.Controllers
 
         [HttpPost]
         [AuthorizeNadia]
-        public ActionResult PlaceOrder(IList<FoodItem> items, int id)
+        public ActionResult PlaceOrder(IList<tblArtists> items, int id)
         {
             bool dbSuccess = false;
             try

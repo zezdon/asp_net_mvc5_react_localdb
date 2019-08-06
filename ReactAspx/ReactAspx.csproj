@@ -215,7 +215,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Data\DBNAME.cs" />
     <Compile Include="Models\Data\PageDTO.cs" />
-    <Compile Include="Models\FoodItem.cs" />
+    <Compile Include="Models\tblArtists.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />

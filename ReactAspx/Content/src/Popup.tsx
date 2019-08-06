@@ -3,7 +3,7 @@
 // https://github.com/Microsoft/TypeScript/wiki/JSX
 import * as React from "react";
 import * as ReactDOM from "react-dom"; 
-import { FoodModel } from "./Models";  
+import { ArtistModel } from "./Models";  
 
 export class Popup extends React.Component<any, any> {
     state: { items: any; myOrder: any; showPopup: boolean; userId: number; orderPlaced: boolean; };	
