@@ -81,10 +81,29 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./Content/src/food.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./Content/src/App.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./Content/src/App.tsx":
+/*!*****************************!*\
+  !*** ./Content/src/App.tsx ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+const MenuBox_1 = __webpack_require__(/*! ./MenuBox */ "./Content/src/MenuBox.tsx");
+ReactDOM.render(React.createElement("div", null,
+    React.createElement(MenuBox_1.MenuBox, null)), document.getElementById("root"));
+
+
+/***/ }),
 
 /***/ "./Content/src/MenuBox.tsx":
 /*!*********************************!*\
@@ -322,7 +341,7 @@ class Popup extends React.Component {
         return (React.createElement("div", { className: 'popup' },
             React.createElement("div", { className: 'popup_inner' },
                 React.createElement("div", { style: { height: '35px', fontSize: '18' } },
-                    React.createElement("b", null, "Order from Nadia's Gareden Restautrant"),
+                    React.createElement("b", null, "Order from Music Festival"),
                     React.createElement("hr", null)),
                 React.createElement("div", { className: 'foodList' }, myItems),
                 React.createElement("div", { style: { height: '35px' } },
@@ -342,25 +361,6 @@ class Popup extends React.Component {
     }
 }
 exports.Popup = Popup;
-
-
-/***/ }),
-
-/***/ "./Content/src/food.tsx":
-/*!******************************!*\
-  !*** ./Content/src/food.tsx ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-const MenuBox_1 = __webpack_require__(/*! ./MenuBox */ "./Content/src/MenuBox.tsx");
-ReactDOM.render(React.createElement("div", null,
-    React.createElement(MenuBox_1.MenuBox, null)), document.getElementById("foodorder"));
 
 
 /***/ }),

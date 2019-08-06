@@ -1,6 +1,6 @@
 ﻿
 module.exports = {
-    entry: "./Content/src/food.tsx",
+    entry: "./Content/src/App.tsx",
     mode: "development",
     output: {
         filename: "bundle.js"
